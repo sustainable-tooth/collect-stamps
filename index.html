@@ -9,7 +9,18 @@
     <button type="button">ここをタップしてスタンプを獲得！</button>
     <br>
     <span>集めたスタンプの数</span>
-    <span>0</span>
+    <span id="stampNumber_Show">0</span>
   </body>
-  <script></script>
+  <script>
+    document.addEventlistener("DOMContentLoaded",()=>{
+      let stampNumber_Int = localStorage.stampNumber
+      if(stampNumber_Int==undefined){
+        stampNumber_Int = 0
+      }else{
+        const stampNumber_Show=document.getElementById("stampNumber_Show")
+        stampNumber_Show.textContent=stampNumber_Int
+      }
+      localStorage.stampNumber = stampNumber_Int
+    })
+  </script>
 </html>
