@@ -13,36 +13,41 @@
   </body>
   <script>
     document.addEventListener("DOMContentLoaded",()=>{
-      let buttonDisabled = false
-      let lastClickedYear_Int = parseInt(localStorage.lastClickedYear)
-      let lastClickedMonth_Int = parseInt(localStorage.lastClickedMonth)
-      let lastClickedDate_Int = parseInt(localStorage.lastClickedDate)
-      let stampNumber_Int=parseInt(localStorage.stampNumber)
-      const collectButton_Element=document.getElementById("countButton_Element")
-      const stampNumber_Element=document.getElementById("stampNumber_Element")
-      if(stampNumber_Int==undefined){
-        stampNumber_Int = 0
-      }
-      if(lastClickedYear_Int!=undefined&&lastClickedMonth_Int!=undefined&&lastClickedDate_Int!=undefined){
-        nowTime=new Date()
-        if(lastClickedMonth_Int==nowTime.getMonth&&lastClickedDate_Int==nowTime.getDate){
-          Button_disable()
-        }
-      }
-      stampNumber_Element.textContent=stampNumber_Int
+      let buttonDisabled=false;
+      let lastClickedYear_Int=parseInt(localStorage.lastClickedYear);
+      let lastClickedMonth_Int=parseInt(localStorage.lastClickedMonth);
+      let lastClickedDate_Int=parseInt(localStorage.lastClickedDate);
+      let stampNumber_Int=parseInt(localStorage.stampNumber);
+      const collectButton_Element=document.getElementById("countButton_Element");
+      const stampNumber_Element=document.getElementById("stampNumber_Element");
+            const Button_disable = ()=>{
+        collectButton_Element.textContent="今日はこれ以上スタンプを集めることはできません";
+        buttonDisabled=true;
+        collectButton_Element.classList.add("disabled_button");
+      };
+      if(isNaN(stampNumber_Int)){
+        stampNumber_Int = 0;
+      };
+      if(!(isNaN(lastClickedYear_Int)||isNaN(lastClickedMonth_Int)||isNaN(lastClickedDate_Int))){
+        nowTime=new Date();
+        if(lastClickedMonth_Int==nowTime.getMonth()&&lastClickedDate_Int==nowTime.getDate()){
+          Button_disable();
+        };
+      };
+      stampNumber_Element.textContent=stampNumber_Int;
       collectButton_Element.addEventListener("click",()=>{
-        if(Button_disabled){
-          stampNumber_Int+=1
-          stampNumber_Element.textContent=stampNumber_Int
-          Button_disable()
-        }
-      })
-      localStorage.stampNumber = stampNumber_Int
-      const Button_disable = ()=>{
-        collectButton_Element.textContent="今日はこれ以上スタンプを集めることはできません"
-        buttonDisabled=true
-        collectButton.classList.add("disabled_button")
-      }
-    })
+        if(!buttonDisabled){
+          stampNumber_Int+=1;
+          stampNumber_Element.textContent=stampNumber_Int;
+          localStorage.stampNumber=stampNumber_Int;
+          nowTime=new Date();
+          localStorage.lastClickedYear = nowTime.getYear();
+          localStorage.lastClickedMonth = nowTime.getMonth();
+          localStorage.lastClickedDate = nowTime.getDate();
+          localStorage.stampNumber = stampNumber_Int;
+          Button_disable();
+        };
+      });
+    });
   </script>
 </html>
