@@ -8,12 +8,16 @@
       body{
         font-size: xxx-large;
       }
+			header{
+				background-color: rgb(135,260,250);
+				height: 2em;
+			}
       button{
         background-color: rgb(233,233,233);
         font-size: xxx-large;
-        padding-top: 1em;
-        padding-bottom: 1em;
-        width: 13em;
+        padding-top: 1.6em;
+        padding-bottom: 1.6em;
+        width: 14em;
         border-radius: 30px;
         text-aline: center;
       }
@@ -26,13 +30,15 @@
     </style>
   </head>
   <body>
-		<header>
+    <header>
 			Love&Teeth Project
 		</header>
      <button type="button" id="countButton_Element">ここをタップしてスタンプを獲得！</button>
     <br>
     <span>集めたスタンプの数</span>
     <span id="stampNumber_Element">0</span>
+		<br>
+		<br>
 		<span>ポイント獲得まで残り</span>
     <span id="restNumber_Element">6</span>
     <br>
@@ -51,15 +57,15 @@
 				const infoText_Element=document.getElementById("infoText_Element");
 				const restNumber_Element=document.getElementById("restNumber_Element");
         const Button_disable = ()=>{
-	　buttonText="今日はこれ以上スタンプを獲得することはできません";
+	　			buttonText="今日はこれ以上スタンプを獲得することはできません";
           collectButton_Element.textContent=buttonText;
           buttonDisabled=true;
           collectButton_Element.classList.add("disabled_button");
         };
-	const add200PointToUser = ()=>{
-	  celebrationText="おめでとう！200ポイントを獲得しました！";
-	　infoText_Element.textContent=celebrationText;
-	};
+				const add200PointToUser = ()=>{
+	  			celebrationText="おめでとう！200ポイントを獲得しました！";
+	　			infoText_Element.textContent=celebrationText;
+				};
         if(isNaN(stampNumber_Int)){
           stampNumber_Int=0;
 					restNumber_Int=6;
