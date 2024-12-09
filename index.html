@@ -15,56 +15,59 @@
         padding-bottom: 1em;
         width: 13em;
         border-radius: 30px;
+        text-aline: center;
       }
       .disabled_button{
+	      display: block;
+	      margin:0 auto;
         color: rgb(20,20,20);
         background-color: rgb(190,190,190);
       }
     </style>
   </head>
   <body>
-    <button type="button" id="countButton_Element">ここをタップしてスタンプを獲得！</button>
+     <button type="button" id="countButton_Element">ここをタップしてスタンプを獲得！</button>
     <br>
     <span>集めたスタンプの数</span>
     <span id="stampNumber_Element">0</span>
-  </body>
-  <script>
-    document.addEventListener("DOMContentLoaded",()=>{
-      let buttonDisabled=false;
-      let lastClickedYear_Int=parseInt(localStorage.lastClickedYear);
-      let lastClickedMonth_Int=parseInt(localStorage.lastClickedMonth);
-      let lastClickedDate_Int=parseInt(localStorage.lastClickedDate);
-      let stampNumber_Int=parseInt(localStorage.stampNumber);
-      const collectButton_Element=document.getElementById("countButton_Element");
-      const stampNumber_Element=document.getElementById("stampNumber_Element");
-            const Button_disable = ()=>{
-        collectButton_Element.textContent="今日はこれ以上スタンプを集めることはできません";
-        buttonDisabled=true;
-        collectButton_Element.classList.add("disabled_button");
-      };
-      if(isNaN(stampNumber_Int)){
-        stampNumber_Int = 0;
-      };
-      if(!(isNaN(lastClickedYear_Int)||isNaN(lastClickedMonth_Int)||isNaN(lastClickedDate_Int))){
-        nowTime=new Date();
-        if(lastClickedMonth_Int==nowTime.getMonth()&&lastClickedDate_Int==nowTime.getDate()){
-          Button_disable();
+    <script>
+      document.addEventListener("DOMContentLoaded",()=>{
+        let buttonDisabled=false;
+        let lastClickedYear_Int=parseInt(localStorage.lastClickedYear);
+        let lastClickedMonth_Int=parseInt(localStorage.lastClickedMonth);
+        let lastClickedDate_Int=parseInt(localStorage.lastClickedDate);
+        let stampNumber_Int=parseInt(localStorage.stampNumber);
+        const collectButton_Element=document.getElementById("countButton_Element");
+        const stampNumber_Element=document.getElementById("stampNumber_Element");
+              const Button_disable = ()=>{
+          collectButton_Element.textContent="今日はこれ以上スタンプを集めることはできません";
+          buttonDisabled=true;
+          collectButton_Element.classList.add("disabled_button");
         };
-      };
-      stampNumber_Element.textContent=stampNumber_Int;
-      collectButton_Element.addEventListener("click",()=>{
-        if(!buttonDisabled){
-          stampNumber_Int+=1;
-          stampNumber_Element.textContent=stampNumber_Int;
-          localStorage.stampNumber=stampNumber_Int;
+        if(isNaN(stampNumber_Int)){
+          stampNumber_Int = 0;
+        };
+        if(!(isNaN(lastClickedYear_Int)||isNaN(lastClickedMonth_Int)||isNaN(lastClickedDate_Int))){
           nowTime=new Date();
-          localStorage.lastClickedYear = nowTime.getYear();
-          localStorage.lastClickedMonth = nowTime.getMonth();
-          localStorage.lastClickedDate = nowTime.getDate();
-          localStorage.stampNumber = stampNumber_Int;
-          Button_disable();
+          if(lastClickedMonth_Int==nowTime.getMonth()&&lastClickedDate_Int==nowTime.getDate()){
+            Button_disable();
+          };
         };
+        stampNumber_Element.textContent=stampNumber_Int;
+        collectButton_Element.addEventListener("click",()=>{
+          if(!buttonDisabled){
+            stampNumber_Int+=1;
+            stampNumber_Element.textContent=stampNumber_Int;
+            localStorage.stampNumber=stampNumber_Int;
+            nowTime=new Date();
+            localStorage.lastClickedYear = nowTime.getYear();
+            localStorage.lastClickedMonth = nowTime.getMonth();
+            localStorage.lastClickedDate = nowTime.getDate();
+            localStorage.stampNumber = stampNumber_Int;
+            Button_disable();
+          };
+        });
       });
-    });
-  </script>
+    </script>
+  </body>
 </html>
