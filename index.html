@@ -20,10 +20,10 @@
         width: 14em;
         border-radius: 30px;
         text-aline: center;
+				display: block;
+				margin:0 auto;
       }
       .disabled_button{
-	display: block;
-	margin:0 auto;
         color: rgb(20,20,20);
         background-color: rgb(190,190,190);
       }
@@ -45,24 +45,31 @@
     <br>
     <span id="infoText_Element">リサイクルしてくれてありがとう</span>
     <script>
+			const stampsNameMaxNumber=3;
+			const chooseNewStamp=()=>{
+				chosenNumber=Math.floor((Math.random()*stampsNameMaxNumber)+1);
+				return chosenNumber;
+			}
       document.addEventListener("DOMContentLoaded",()=>{
         let buttonDisabled=false;
         let lastClickedYear_Int=parseInt(localStorage.lastClickedYear);
         let lastClickedMonth_Int=parseInt(localStorage.lastClickedMonth);
         let lastClickedDate_Int=parseInt(localStorage.lastClickedDate);
         let stampNumber_Int=parseInt(localStorage.stampNumber);
+				let stampsName_List=String(localStorage.stampsName).split(",").map((k)=>parseInt(k));
 				let restNumber_Int=Math.max(0,6-stampNumber_Int);
+				
         const collectButton_Element=document.getElementById("countButton_Element");
         const stampNumber_Element=document.getElementById("stampNumber_Element");
 				const infoText_Element=document.getElementById("infoText_Element");
 				const restNumber_Element=document.getElementById("restNumber_Element");
-        const Button_disable = ()=>{
+        const Button_disable=()=>{
 	　			buttonText="今日はこれ以上スタンプを獲得することはできません";
           collectButton_Element.textContent=buttonText;
           buttonDisabled=true;
           collectButton_Element.classList.add("disabled_button");
         };
-				const add200PointToUser = ()=>{
+				const add200PointToUser=()=>{
 	  			celebrationText="おめでとう！200ポイントを獲得しました！";
 	　			infoText_Element.textContent=celebrationText;
 				};
@@ -76,6 +83,18 @@
             Button_disable();
           };
         };
+				if(isNaN(stampsName_List[0])){
+					if(stampNumber_Int>0){
+						const new_stampName_List=[];
+						for(let i=0;i<stampNumber_Int;i++){
+							new_stampName_List.push(chooseNewStamp());
+						}
+						stampsName_List=new_stampName_List;
+					}else{
+						stampsName_List=[0];
+					}
+					localStorage.stampsName=stampsName_List;
+				}
         stampNumber_Element.textContent=stampNumber_Int;
 				restNumber_Element.textContent=restNumber_Int;
 	if(stampNumber_Int>=6){
