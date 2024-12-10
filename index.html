@@ -33,6 +33,7 @@
     <header>
 			Love&Teeth Project
 		</header>
+	<main>
      <button type="button" id="countButton_Element">ここをタップしてスタンプを獲得！</button>
     <br>
     <span>集めたスタンプの数</span>
@@ -41,11 +42,18 @@
 		<br>
 		<span>ポイント獲得まで残り</span>
     <span id="restNumber_Element">6</span>
-    <br>
-    <br>
+    <div id="stampArea_Element"></div>
     <span id="infoText_Element">リサイクルしてくれてありがとう</span>
+	</main>
     <script>
 			const stampsNameMaxNumber=3;
+			const imagesdict={1:"Eco_Dental_Movement.png",2:"love_and_teeth.png",3:"sustai_h_able.png"}
+			const stickStamp=(stampName,stampArea)=>{
+				stampImg_Element=document.createElement("img");
+				stampImg_Element.src="./stamp_images/"+imagesdict[stampName];
+				stampImg_Element.alt="Stamp";
+				stampArea.appendChild(stampImg_Element);
+			}
 			const chooseNewStamp=()=>{
 				chosenNumber=Math.floor((Math.random()*stampsNameMaxNumber)+1);
 				return chosenNumber;
@@ -63,6 +71,7 @@
         const stampNumber_Element=document.getElementById("stampNumber_Element");
 				const infoText_Element=document.getElementById("infoText_Element");
 				const restNumber_Element=document.getElementById("restNumber_Element");
+				const stampArea_Element=document.getElementById("stampArea_Element");
         const Button_disable=()=>{
 	　			buttonText="今日はこれ以上スタンプを獲得することはできません";
           collectButton_Element.textContent=buttonText;
@@ -95,8 +104,11 @@
 					}
 					localStorage.stampsName=stampsName_List;
 				}
-        stampNumber_Element.textContent=stampNumber_Int;
-				restNumber_Element.textContent=restNumber_Int;
+  stampNumber_Element.textContent=stampNumber_Int;
+	restNumber_Element.textContent=restNumber_Int;
+	for(let i=0;i<stampNumber_Int;i++){
+		stickStamp(stampsName_List,stampArea_Element);
+	}
 	if(stampNumber_Int>=6){
 	  add200PointToUser()
 	}
