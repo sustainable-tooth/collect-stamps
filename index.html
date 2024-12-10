@@ -52,6 +52,7 @@
 				stampImg_Element=document.createElement("img");
 				stampImg_Element.src="./stamp_images/"+imagesdict[stampName];
 				stampImg_Element.alt="Stamp";
+				stampImg_Element.width="400";
 				stampArea.appendChild(stampImg_Element);
 			}
 			const chooseNewStamp=()=>{
@@ -107,7 +108,7 @@
   stampNumber_Element.textContent=stampNumber_Int;
 	restNumber_Element.textContent=restNumber_Int;
 	for(let i=0;i<stampNumber_Int;i++){
-		stickStamp(stampsName_List,stampArea_Element);
+		stickStamp(stampsName_List[i],stampArea_Element);
 	}
 	if(stampNumber_Int>=6){
 	  add200PointToUser()
