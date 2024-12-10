@@ -27,6 +27,13 @@
         color: rgb(20,20,20);
         background-color: rgb(190,190,190);
       }
+	.empty_stamp{
+	display:inline-block;
+	background-color: rgb(192,192,192);
+	width:300px;
+	height:300px;
+	border-radius: 50%;
+	}
     </style>
   </head>
   <body>
@@ -42,22 +49,20 @@
 		<br>
 		<span>ポイント獲得まで残り</span>
     <span id="restNumber_Element">6</span>
-    <div id="stampArea_Element"></div>
+    <div id="stampArea_Element">
+    </div>
     <span id="infoText_Element">リサイクルしてくれてありがとう</span>
 	</main>
     <script>
-			const stampsNameMaxNumber=3;
-			const imagesdict={1:"Eco_Dental_Movement.png",2:"love_and_teeth.png",3:"sustai_h_able.png"}
+			
+			const images_List=["EDM.png","Eco_Dental_Movement.png","dental_project.png","love_and_teeth.png","recycle.png","sustai_h_able.png"];
+	    		const stampsNameMaxNumber=images_List.length;
 			const stickStamp=(stampName,stampArea)=>{
 				stampImg_Element=document.createElement("img");
-				stampImg_Element.src="./stamp_images/"+imagesdict[stampName];
-				stampImg_Element.alt="Stamp";
-				stampImg_Element.width="400";
+				stampImg_Element.src="./stamp_images/"+images_List[stampName-1];
+				stampImg_Element.alt="Stamp"+images_List[stampName-1];
+				stampImg_Element.width="300";
 				stampArea.appendChild(stampImg_Element);
-			}
-			const chooseNewStamp=()=>{
-				chosenNumber=Math.floor((Math.random()*stampsNameMaxNumber)+1);
-				return chosenNumber;
 			}
       document.addEventListener("DOMContentLoaded",()=>{
         let buttonDisabled=false;
@@ -94,21 +99,24 @@
           };
         };
 				if(isNaN(stampsName_List[0])){
-					if(stampNumber_Int>0){
-						const new_stampName_List=[];
-						for(let i=0;i<stampNumber_Int;i++){
-							new_stampName_List.push(chooseNewStamp());
-						}
-						stampsName_List=new_stampName_List;
-					}else{
-						stampsName_List=[0];
+					const new_stampName_List=Array(stampsNameMaxNumber)
+					for(let i=0;i<stampsNameMaxNumber;i++){
+						j=Math.floor(Math.random()*(i+1));
+						new_stampName_List[i]=new_stampName_List[j]
+						new_stampName_List[j]=i+1
 					}
+						stampsName_List=new_stampName_List;
 					localStorage.stampsName=stampsName_List;
 				}
   stampNumber_Element.textContent=stampNumber_Int;
 	restNumber_Element.textContent=restNumber_Int;
-	for(let i=0;i<stampNumber_Int;i++){
+	for(let i=0;i<Math.min(stampsNameMaxNumber,stampNumber_Int);i++){
 		stickStamp(stampsName_List[i],stampArea_Element);
+	}
+	for(let i=0; i<restNumber_Int;i++){
+		emptyStamp_Element=document.createElement("div");
+		emptyStamp_Element.classList.add("empty_stamp");
+		stampArea_Element.appendChild(emptyStamp_Element);
 	}
 	if(stampNumber_Int>=6){
 	  add200PointToUser()
