@@ -96,9 +96,9 @@
           nowTime=new Date();
           if(lastClickedMonth_Int==nowTime.getMonth()&&lastClickedDate_Int==nowTime.getDate()){
             Button_disable();
-          };
+	  };
         };
-				if(isNaN(stampsName_List[0])){
+				if(isNaN(stampsName_List[0])||stampsName_List.length<stampNumber_Int){
 					const new_stampName_List=Array(stampsNameMaxNumber)
 					for(let i=0;i<stampsNameMaxNumber;i++){
 						j=Math.floor(Math.random()*(i+1));
