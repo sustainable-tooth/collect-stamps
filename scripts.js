@@ -61,14 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
 	for (let i = 0; i < restNumber_Int; i++) {
 		emptyStamp_Element = document.createElement("div");
 		emptyStamp_Element.classList.add("empty_stamp");
+		emptyStamp_Element.id=String(i)+"emptyStamp_Element";
 		stampArea_Element.appendChild(emptyStamp_Element);
 	}
 	if (stampNumber_Int >= 6) {
-		add200PointToUser()
+		add200PointToUser();
 	}
 	collectButton_Element.addEventListener("click", () => {
 		if (!buttonDisabled) {
 			stampNumber_Int += 1;
+			if(stampNumber_Int<=6){
+				stampImg_Element = document.createElement("img");
+				stampImg_Element.src = "./stamp_images/" + images_List[stampNumber_Int - 1];
+				stampImg_Element.alt = "Stamp" + images_List[stampNumber_Int - 1];
+				stampImg_Element.width = "300";
+				old_Element=document.getElementById("0emptyStamp_Element");
+				old_Element.replaceWith(stampImg_Element);
+			}
 			restNumber_Int = Math.max(0, 6 - stampNumber_Int);
 			stampNumber_Element.textContent = stampNumber_Int;
 			restNumber_Element.textContent = restNumber_Int;
