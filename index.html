@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 	<meta charset="UTF-8">
 	<title>スタンプ集め|Love&Teethプロジェクト|課題協学２
@@ -8,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<link rel="preload" href="./stamp_images/EDM.png" as="image">
 	<link rel="preload" href="./stamp_images/Eco_Dental_Movement.png" as="image">
+	<link rel="preload" href="./stamp_images/dental_project.png" as="image">
 	<link rel="preload" href="./stamp_images/love_and_teeth.png" as="image">
 	<link rel="preload" href="./stamp_images/recycle.png" as="image">
 	<link rel="preload" href="./stamp_images/sustai_h_able.png" as="image">
@@ -20,17 +20,17 @@
 	<main>
 		<button type="button" id="countButton_Element" autofocus>ここをタップしてスタンプを獲得！</button>
 		<br>
-		<span>集めたスタンプの数</span>
+		<span class="main_text">集めたスタンプの数</span>
 		<span id="stampNumber_Element">0</span>
-		<span>枚</span>
+		<span class="main_text">枚</span>
 		<br>
-		<span>ポイント獲得まで残り</span>
+		<span class="main_text">ポイント獲得まで残り</span>
 		<span id="restNumber_Element">6</span>
-		<span>枚</span>
+		<span class="main_text">枚</span>
 		<br>
 		<div id="stampArea_Element">
 		</div>
-		<span id="infoText_Element">リサイクルしてくれてありがとう</span>
+		<span id="infoText_Element">リサイクルありがとうございます</span>
 	</main>
 	<script src="scripts.js" type="text/javascript"></script>
 </body>
