@@ -5,8 +5,9 @@ const stampsNameMaxNumber = images_List.length;
 const stickStamp = (stampName, stampArea) => {
 	const stampImg_Element = document.createElement("img");
 	stampImg_Element.src = "./stamp_images/" + images_List[stampName - 1];
-	stampImg_Element.alt = "Stamp" + images_List[stampName - 1];
+	stampImg_Element.alt = "Stamp " + images_List[stampName - 1];
 	stampImg_Element.width = "300";
+	stampImg_Element.height = String(Math.floor(stampImg_Element.naturalHeight*300/stampImg_Element.naturalWidth));
 	stampArea.appendChild(stampImg_Element);
 }
 document.addEventListener("DOMContentLoaded", () => {
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				stampImg_Element.src = "./stamp_images/" + images_List[stampsName_List[stampNumber_Int - 1]-1];
 				stampImg_Element.alt = "Stamp" + images_List[stampsName_List[stampNumber_Int - 1]-1];
 				stampImg_Element.width = "300";
+				stampImg_Element.height = String(Math.floor(stampImg_Element.naturalHeight*300/stampImg_Element.naturalWidth));
 				old_Element=document.getElementById("0emptyStamp_Element");
 				old_Element.replaceWith(stampImg_Element);
 			}
