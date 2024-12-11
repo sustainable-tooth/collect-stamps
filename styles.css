@@ -1,29 +1,44 @@
 body {
     font-size: xxx-large;
 }
+img {
+    display: inline-block;
+    margin: 0.2em 0.2em;
+    filter: drop-shadow(4px 4px 4px #4a4a4a);
+}
 header {
-    background-color: rgb(135, 260, 250);
+    font-size: 2em;
+    background-color: rgb(135, 240, 250);
     height: 2em;
+    line-height: 2em;
+    text-align: center;
 }
 button {
     background-color: rgb(233, 233, 233);
     font-size: xxx-large;
-    padding-top: 1.6em;
-    padding-bottom: 1.6em;
+    padding-top: 2.6em;
+    padding-bottom: 2.6em;
     width: 14em;
     border-radius: 30px;
-    text-aline: center;
     display: block;
-    margin: 0 auto;
+    margin: 1em auto;
+    box-shadow: 5px 5px 6px 2px;
 }
 .disabled_button {
     color: rgb(20, 20, 20);
     background-color: rgb(190, 190, 190);
+    box-shadow:0 0 0 0;
 }
 .empty_stamp {
-    display: inline-block;
     background-color: rgb(192, 192, 192);
     width: 300px;
     height: 300px;
+    line-height: 300px;
     border-radius: 50%;
+    margin: 0.2em 0.2em;
+    text-align: center;
+}
+#stampArea_Element {
+    display: flex;
+    flex-wrap: wrap;
 }
