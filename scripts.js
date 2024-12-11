@@ -3,15 +3,19 @@ const images_List = ["EDM.png", "Eco_Dental_Movement.png", "dental_project.png",
 ];
 const stampsNameMaxNumber = images_List.length;
 const stickStamp = (stampName, stampArea) => {
-	stampImg_Element = document.createElement("img");
+	const stampImg_Element = document.createElement("img");
 	stampImg_Element.src = "./stamp_images/" + images_List[stampName - 1];
 	stampImg_Element.alt = "Stamp" + images_List[stampName - 1];
 	stampImg_Element.width = "300";
 	stampArea.appendChild(stampImg_Element);
 }
 document.addEventListener("DOMContentLoaded", () => {
-	let buttonDisabled = false;
 	let lastClickedYear_Int = parseInt(localStorage.lastClickedYear);
+	let nowTime = new Date();
+	if (Math.abs(lastClickedYear_Int-nowTime.getYear()) > 1) {
+		localStorage.clear();
+	};
+	let buttonDisabled = false;
 	let lastClickedMonth_Int = parseInt(localStorage.lastClickedMonth);
 	let lastClickedDate_Int = parseInt(localStorage.lastClickedDate);
 	let stampNumber_Int = parseInt(localStorage.stampNumber);
@@ -24,56 +28,61 @@ document.addEventListener("DOMContentLoaded", () => {
 	const restNumber_Element = document.getElementById("restNumber_Element");
 	const stampArea_Element = document.getElementById("stampArea_Element");
 	const Button_disable = () => {　
-		buttonText = "今日はこれ以上スタンプを獲得することはできません";
+		const buttonText = "今日はこれ以上スタンプを獲得することはできません";
 		collectButton_Element.textContent = buttonText;
 		buttonDisabled = true;
 		collectButton_Element.classList.add("disabled_button");
 	};
 	const add200PointToUser = () => {
-		celebrationText = "おめでとう！200ポイントを獲得しました！";　
+		const celebrationText = "おめでとう！200ポイントを獲得しました！";　
 		infoText_Element.textContent = celebrationText;
 	};
 	if (isNaN(stampNumber_Int)) {
 		stampNumber_Int = 0;
+		localStorage.stampNumber = stampNumber_Int;
 		restNumber_Int = 6;
 	};
 	if (!(isNaN(lastClickedYear_Int) || isNaN(lastClickedMonth_Int) || isNaN(lastClickedDate_Int))) {
-		nowTime = new Date();
 		if (lastClickedMonth_Int == nowTime.getMonth() && lastClickedDate_Int == nowTime.getDate()) {
 			Button_disable();
 		};
 	};
 	if (isNaN(stampsName_List[0]) || stampsName_List.length < stampNumber_Int) {
-		const new_stampName_List = Array(stampsNameMaxNumber)
+		const new_stampName_List = Array(stampsNameMaxNumber);
 		for (let i = 0; i < stampsNameMaxNumber; i++) {
-			j = Math.floor(Math.random() * (i + 1));
-			new_stampName_List[i] = new_stampName_List[j]
-			new_stampName_List[j] = i + 1
-		}
+			const j = Math.floor(Math.random() * (i + 1));
+			new_stampName_List[i] = new_stampName_List[j];
+			new_stampName_List[j] = i + 1;
+		};
 		stampsName_List = new_stampName_List;
 		localStorage.stampsName = stampsName_List;
-	}
+	};
 	stampNumber_Element.textContent = stampNumber_Int;
 	restNumber_Element.textContent = restNumber_Int;
 	for (let i = 0; i < Math.min(stampsNameMaxNumber, stampNumber_Int); i++) {
 		stickStamp(stampsName_List[i], stampArea_Element);
-	}
+	};
 	for (let i = 0; i < restNumber_Int; i++) {
-		emptyStamp_Element = document.createElement("div");
+		const emptyStamp_Element = document.createElement("div");
 		emptyStamp_Element.classList.add("empty_stamp");
 		emptyStamp_Element.id=String(i)+"emptyStamp_Element";
+		if (i === restNumber_Int - 1) {
+			emptyStamp_Element.textContent="200point";
+		} else {
+			emptyStamp_Element.textContent=String(restNumber_Int-i);
+		};
 		stampArea_Element.appendChild(emptyStamp_Element);
-	}
+	};
 	if (stampNumber_Int >= 6) {
 		add200PointToUser();
-	}
+	};
 	collectButton_Element.addEventListener("click", () => {
 		if (!buttonDisabled) {
 			stampNumber_Int += 1;
 			if(stampNumber_Int<=6){
-				stampImg_Element = document.createElement("img");
-				stampImg_Element.src = "./stamp_images/" + images_List[stampNumber_Int - 1];
-				stampImg_Element.alt = "Stamp" + images_List[stampNumber_Int - 1];
+				const stampImg_Element = document.createElement("img");
+				stampImg_Element.src = "./stamp_images/" + images_List[stampsName_List[stampNumber_Int - 1]-1];
+				stampImg_Element.alt = "Stamp" + images_List[stampsName_List[stampNumber_Int - 1]-1];
 				stampImg_Element.width = "300";
 				old_Element=document.getElementById("0emptyStamp_Element");
 				old_Element.replaceWith(stampImg_Element);
@@ -89,8 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			localStorage.stampNumber = stampNumber_Int;
 			Button_disable();
 			if (stampNumber_Int >= 6) {
-				add200PointToUser()
-			}
+				add200PointToUser();
+			};
 		};
 	});
 });
