@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>Javascriptでお絵描き
+	</title>
+	<style>
+		body{
+			background-color:rgb(200 200 200);
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		Javascriptでお絵描き
+	</header>
+	<main>
+		<canvas id="mainCanvas" width="600" height="600">
+			デザイン画面
+		</canvas>
+	</main>
+	<script>
+		const randomNumber600 = () => Math.floor(Math.random()*601);
+		const circlelist = (x,y,r) => {
+			const new_circlelist = [];
+			for(let i=0;i<=100;i++){
+				const new_x = x+Math.cos(Math.PI/50*i)*r;
+				const new_y = y+Math.sin(Math.PI/50*i)*r;
+				new_circlelist.push([new_x,new_y]);
+			}
+			return new_circlelist;
+		};
+		const starlist = (x,y,r) => {
+			const new_starlist = [];
+			for(let i=0;i<=6;i++){
+				const new_x = x+Math.cos(Math.PI*4*i/5)*r;
+				const new_y = y+Math.sin(Math.PI*4*i/5)*r;
+				new_starlist.push([new_x,new_y]);
+			}
+			return new_starlist;
+		}
+		const rotate = (vlist,theta,center) => {
+			const new_vlist = [];
+			for(let i=0;i<vlist.length;i++){
+				const new_x = (vlist[i][0]-center[0])*Math.cos(theta)-(vlist[i][1]-center[1])*Math.sin(theta)+center[0];
+				const new_y = (vlist[i][0]-center[0])*Math.sin(theta)+(vlist[i][1]-center[1])*Math.cos(theta)+center[1];
+				new_vlist.push([new_x,new_y]);
+			};
+			return new_vlist;
+		};
+		const Nverify = x =>{
+			let x_ = Math.round(x);
+			if (x_ < 0) {
+				x_ = 0;
+			} else if (x_ > 600) {
+				x_ = 600;
+			};
+			return x_;
+		};
+		const strokeDraw = (context,color,vList) => {
+			context.strokeStyle = color;
+			context.beginPath();
+			for(let i=0;i<vList.length;i++){
+				context.lineTo(Nverify(vList[i][0]),Nverify(vList[i][1]));
+			};
+			context.stroke();
+		};
+		const fillDraw = (context,color,vList) => {
+			context.fillStyle = color;
+			context.beginPath();
+			for(let i=0;i<vList.length;i++){
+				context.lineTo(Nverify(vList[i][0]),Nverify(vList[i][1]));
+			};
+			context.fill();
+		};
+		window.addEventListener("load",()=>{
+			const mainCanvas = document.getElementById("mainCanvas");
+			const context = mainCanvas.getContext("2d");
+			for(let i=0;i<200;i++){
+				context.fillStyle=`rgb(${i+31} ${Math.floor(i/2+15)} ${Math.floor(-i/3+130)})`;
+				context.fillRect(0,i*3,600,3);
+			};
+			for(let i=0;i<45;i++){
+				strokeDraw(context,"rgb(255 255 255)",rotate(starlist(randomNumber600(),randomNumber600(),Math.random()*13+5),Math.PI*Math.random(),[300,300]));
+			};
+			for(let i=0;i<6;i++){
+				fillDraw(context,`rgb(${140+i*10} ${140+i*10} ${160+i*10} / ${0.2*i})`, circlelist(300,300,120-i*10));
+			};
+		});
+	</script>
+</body>
+
+</html>
