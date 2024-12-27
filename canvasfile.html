@@ -87,6 +87,11 @@
 			for(let i=0;i<6;i++){
 				fillDraw(context,`rgb(${140+i*10} ${140+i*10} ${160+i*10} / ${0.2*i})`, circlelist(300,300,120-i*10));
 			};
+
+	let link = document.createElement("a");
+	link.href = mainCanvas.toDataURL("image/png");
+	link.download = "moon.png";
+	link.click();
 		});
 	</script>
 </body>
